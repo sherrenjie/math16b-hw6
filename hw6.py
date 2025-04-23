@@ -1,4 +1,5 @@
 import numpy as np
+from collections import deque 
 
 def is_stochastic(M):
     """
@@ -16,7 +17,7 @@ def is_stochastic(M):
         return False
 
     col_sums = M.sum(axis=0)               # column sums
-    return np.allclose(col_sums, np.ones(cols), atol=1e-8)
+    return np.allclose(M.sum(axis=0), 1.0, atol=1e-6)
 
 
 def adjacency(graph_dict):
