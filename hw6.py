@@ -17,7 +17,7 @@ def is_stochastic(M):
         return False
 
     col_sums = M.sum(axis=0)               # column sums
-    return np.allclose(M.sum(axis=0), 1.0, atol=1e-5)
+    return np.allclose(M.sum(axis=1), 1.0, atol=1e-5)
 
 
 def adjacency(graph_dict):
@@ -59,7 +59,8 @@ def count_shortest_paths(A, u, v):
 
     while q:
         current = q.popleft()
-        for neighbour in np.where(A[current] == 1)[0]:
+        for neighbour in np.where(A[current] > 0)[0]:
+
             # First time we see this neighbour
             if dist[neighbour] is None:
                 dist[neighbour] = dist[current] + 1
