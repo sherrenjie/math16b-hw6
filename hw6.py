@@ -71,6 +71,5 @@ def count_shortest_paths(A, u, v):
 
             elif dist[neighbour] == dist[current] + 1:
                 count[neighbour] += count[current] * w
-
-
-    return count[v]
+                
+    return count[v] if dist[v] is not None else 0  # Return 0 if v is unreachable
