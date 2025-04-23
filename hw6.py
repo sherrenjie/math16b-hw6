@@ -59,15 +59,17 @@ def count_shortest_paths(A, u, v):
 
     while q:
         current = q.popleft()
+        # consider every positive-weight edge
         for neighbour in np.where(A[current] > 0)[0]:
+            w = A[current, neighbour]          # number of parallel edges
 
-            # First time we see this neighbour
-            if dist[neighbour] is None:
-                dist[neighbour] = dist[current] + 1
-                count[neighbour] = count[current]
+            if dist[neighbour] is None:        # first time we reach neighbour
+                dist[neighbour]  = dist[current] + 1
+                count[neighbour] = count[current] * w
                 q.append(neighbour)
-            # Found another shortest path of the same length
+
             elif dist[neighbour] == dist[current] + 1:
-                count[neighbour] += count[current]
+                count[neighbour] += count[current] * w
+
 
     return count[v]
